@@ -34,6 +34,7 @@ public class Customer {
     private Agent agent;
 
     @OneToMany(cascade = CascadeType.DETACH, mappedBy = "customer")
+    @JsonIgnore
     private Set<Order> orders;
 
     public Customer() {

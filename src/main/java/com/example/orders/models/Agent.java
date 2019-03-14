@@ -1,5 +1,6 @@
 package com.example.orders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,10 +17,12 @@ public class Agent {
     @Column(nullable = false)
     private long agentcode;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "agent")
+    @OneToMany(mappedBy = "agent")
+    @JsonIgnore
     private Set<Customer> customers;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "agent")
+    @OneToMany(mappedBy = "agent")
+    @JsonIgnore
     private Set<Order> orders;
 
     private String agentname;
