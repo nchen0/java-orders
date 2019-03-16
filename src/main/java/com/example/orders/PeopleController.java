@@ -1,14 +1,13 @@
 package com.example.orders;
 
 import com.example.orders.models.Agent;
+import com.example.orders.models.Customer;
 import com.example.orders.repository.AgentRepository;
 import com.example.orders.repository.CustomerRepository;
 import com.example.orders.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,34 +24,35 @@ public class PeopleController {
     @Autowired
     OrderRepository orderrepos;
 
-    // agents - Returns all agents with their customers
+    // /customer/order - Returns all customers with their orders
+    @GetMapping("/customer/order")
+    public List<Customer> getAllCustomerOrders() {
+        return customerrepos.findAll();
+    }
+
+    // /customer/name/{custname} - Returns all orders for a particular customer based on name.
+    @GetMapping("/customer/name/{custname}")
+    public Customer findCustByName(@PathVariable String custname) {
+        return customerrepos.findByCustname(custname);
+    }
+
+    // /agents - Returns all agents with their customers
     @GetMapping("/agents")
     public List<Agent> getAllAgents() {
         return agentrepos.findAll();
     }
 
-    /*@GetMapping("/customers")
-    public List<Customer> findCustomers() {
-        return customerrepos.findAll();
-    }
-
-    @GetMapping("/orders")
-    public List<Order> findOrders() {
-        return orderrepos.findAll();
-    }
-
-    // customer/order - Returns all customers with their orders
-    @GetMapping("/customer/order")
-    public List<Object []> getCustomerOrders() {
-        return customerrepos.findCustomerOrders();
-    }
-
-
-
-    // agents/orders - Return a list with the agents name and associated order number and order description
+    // /agents/orders - Returns a list with the agents name and associated order number and order description
     @GetMapping("/agents/orders")
-    public List<Object []> getAgentOrders() {
+    public List<Object[]> getAgentOrders() {
         return agentrepos.findAgentOrders();
-    }*/
+    }
 
+    // /customer/{custcode} - Deletes a customer based off of their custcode and deletes all their associated order
+    @DeleteMapping("/customer/{custcode}")
+    public void deleteCustomerOrder(@PathVariable Long custcode) {
+        customerrepos.deleteById(custcode);
+    }
+
+    // /agents/{agentcode} - Deletes an agent if they are not assigned to a customer or oder. (Stretch)
 }

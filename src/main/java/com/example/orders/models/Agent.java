@@ -13,10 +13,10 @@ public class Agent {
     @Column(nullable = false)
     private long agentcode;
 
-    @OneToMany(mappedBy = "agent")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "agent")
     private Set<Customer> customer;
 
-    @OneToMany(mappedBy = "agent")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "agent")
     private Set<Order> orders;
 
     private String agentname;
