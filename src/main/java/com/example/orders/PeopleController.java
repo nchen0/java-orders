@@ -1,8 +1,6 @@
 package com.example.orders;
 
 import com.example.orders.models.Agent;
-import com.example.orders.models.Customer;
-import com.example.orders.models.Order;
 import com.example.orders.repository.AgentRepository;
 import com.example.orders.repository.CustomerRepository;
 import com.example.orders.repository.OrderRepository;
@@ -27,7 +25,13 @@ public class PeopleController {
     @Autowired
     OrderRepository orderrepos;
 
-    @GetMapping("/customers")
+    // agents - Returns all agents with their customers
+    @GetMapping("/agents")
+    public List<Agent> getAllAgents() {
+        return agentrepos.findAll();
+    }
+
+    /*@GetMapping("/customers")
     public List<Customer> findCustomers() {
         return customerrepos.findAll();
     }
@@ -43,16 +47,12 @@ public class PeopleController {
         return customerrepos.findCustomerOrders();
     }
 
-    // agents - Returns all agents with their customers
-    @GetMapping("/agents")
-    public List<Agent> getAllAgents() {
-        return agentrepos.findAll();
-    }
+
 
     // agents/orders - Return a list with the agents name and associated order number and order description
     @GetMapping("/agents/orders")
     public List<Object []> getAgentOrders() {
         return agentrepos.findAgentOrders();
-    }
+    }*/
 
 }

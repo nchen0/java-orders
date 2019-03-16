@@ -1,13 +1,9 @@
 package com.example.orders.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Data
 @Table(name="agents") // Here, we're putting a table of agent into our table.
 public class Agent {
     // Now we are creating the columns in our table.
@@ -18,11 +14,9 @@ public class Agent {
     private long agentcode;
 
     @OneToMany(mappedBy = "agent")
-    @JsonIgnore
-    private Set<Customer> customers;
+    private Set<Customer> customer;
 
     @OneToMany(mappedBy = "agent")
-    @JsonIgnore
     private Set<Order> orders;
 
     private String agentname;
@@ -35,5 +29,65 @@ public class Agent {
 
     public Agent() {
 
+    }
+
+    public Set<Customer> getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Set<Customer> customer) {
+        this.customer = customer;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public String getAgentname() {
+        return agentname;
+    }
+
+    public void setAgentname(String agentname) {
+        this.agentname = agentname;
+    }
+
+    public String getWorkingarea() {
+        return workingarea;
+    }
+
+    public void setWorkingarea(String workingarea) {
+        this.workingarea = workingarea;
+    }
+
+    public double getCommission() {
+        return commission;
+    }
+
+    public void setCommission(double commission) {
+        this.commission = commission;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public long getAgentcode() {
+        return agentcode;
     }
 }
